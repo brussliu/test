@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>PLAY</title>
+        <script src="jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="jquery.xdomainajax.js"> </script>
+        <script src="load.js"></script>
+        <script>
+        	
+			function loadPage(url) {
+			
+				var http = require('http');
+				
+				var pm = new Promise(function (resolve, reject) {
+				
+					http.get(url, function (res) {
+					
+						var html = '';
+						
+						res.on('data', function (d) {
+							html += d.toString()
+						});
+						
+						res.on('end', function () {
+							resolve(html);
+						});
+					}).on('error', function (e) {
+					
+						reject(e)
+						
+					});
+				});
+				
+				return pm;
+			}
+			
+			
+			loadPage('http://www.baidu.com').then(function (d) {
+				alert(d);
+				console.log(d);
+			});
+
+        </script>
+    </head>
+    <body">
+        <h1>ここに外部 HTML ファイルを表示します</h1>
+        
+        <div id="page">
+        
+        
+        
+        </div>
+
+    </body>
+<script>readHtml();</script>
+</html>
